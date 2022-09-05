@@ -1,7 +1,11 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 class NewTransaction extends StatelessWidget {
-  NewTransaction({Key? key}) : super(key: key);
+  final Function addTx;
+
+  NewTransaction({Key? key, required this.addTx}) : super(key: key);
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
   @override
@@ -22,7 +26,9 @@ class NewTransaction extends StatelessWidget {
               decoration: InputDecoration(labelText: 'Amount'),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                addTx(_titleController.text, double.parse(_amountController.text));
+              },
               child: Text(
                 'Add Transaction',
                 style: TextStyle(

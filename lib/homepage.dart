@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:personal_expense/widgets/user_transaction.dart';
 import './widgets/new_transaction.dart';
 
 
@@ -16,18 +17,20 @@ class HomePage extends StatelessWidget {
         title: Text('Flutter App'),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            child: Card(
-              color: Colors.blue,
-              elevation: 5,
-              child: Text('CHART'),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              child: Card(
+                color: Colors.blue,
+                elevation: 5,
+                child: Text('CHART'),
+              ),
             ),
-          ),
-          
-        ],
+            UserTransactions()
+          ],
+        ),
       ),
     );
   }

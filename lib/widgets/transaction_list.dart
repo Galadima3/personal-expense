@@ -1,19 +1,23 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../model/transactions.dart';
 
 class TransactionList extends StatelessWidget {
-  TransactionList({Key? key}) : super(key: key);
-    
-  
+  final List<Transaction> transactions;
+  const TransactionList({Key? key, required this.transactions})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-            children: _userTransactions.map((tx) {
-              return Card(
-                  child: Row(
+    return SizedBox(
+        height: 300,
+        child: ListView.builder(
+          itemBuilder: (context, index) {
+            return Card(
+              child: Row(
                 children: [
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
@@ -25,7 +29,7 @@ class TransactionList extends StatelessWidget {
                     ),
                     padding: EdgeInsets.all(10),
                     child: Text(
-                      '\$${tx.amount}',
+                      '\$${transactions[index].amount}',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -37,21 +41,26 @@ class TransactionList extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        tx.title,
+                        transactions[index].title,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        DateFormat.yMMMMd().add_jm().format(tx.date),
+                        DateFormat.yMMMMd().add_jm().format(transactions[index].date),
                         style: TextStyle(fontSize: 15, color: Colors.grey),
                       ),
                     ],
                   ),
                 ],
-              ));
-            }).toList(),
-          );
+              ),
+            );
+          },
+          itemCount: transactions.length,
+          // children: transactions.map((tx) {
+          //   return 
+          // }).toList(),
+        ));
   }
 }
