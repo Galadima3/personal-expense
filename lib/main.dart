@@ -13,12 +13,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      title: 'Personal Expenses',
       theme: ThemeData(
-        
-        primarySwatch: Colors.blue,
-      ),
-      home: HomePage(),
+          primarySwatch: Colors.purple,
+          fontFamily: 'QuickSand',
+          appBarTheme: const AppBarTheme(
+              titleTextStyle: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold))),
+      home: const HomePage(),
     );
   }
 }
-
