@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:personal_expense/model/transactions.dart';
+import 'package:personal_expense/widgets/chart.dart';
 import 'package:personal_expense/widgets/new_transaction.dart';
 import 'package:personal_expense/widgets/transaction_list.dart';
 
@@ -18,6 +19,16 @@ class _HomePageState extends State<HomePage> {
     //     id: 'T1', title: 'New Shoes', amount: 59.50, date: DateTime.now()),
     // Transaction(id: 'T2', title: 'Tithe', amount: 50.50, date: DateTime.now()),
   ];
+
+  List<Transaction> get _recentTransactions {
+    return _userTransactions.where((element) {
+      return element.date.isAfter(
+        DateTime.now().subtract(
+          Duration(days: 7),
+        ),
+      );
+    }).toList();
+  }
 
   _addNewTransaction(String txTitle, double txAmount) {
     final newTx = Transaction(
@@ -36,9 +47,9 @@ class _HomePageState extends State<HomePage> {
         context: ctx,
         builder: (_) {
           return GestureDetector(
-            onTap: (){}, 
-            behavior: HitTestBehavior.opaque,
-            child: NewTransaction(addTx: _addNewTransaction));
+              onTap: () {},
+              behavior: HitTestBehavior.opaque,
+              child: NewTransaction(addTx: _addNewTransaction));
         });
   }
 
@@ -46,7 +57,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter App', style: TextStyle(fontFamily: 'OpenSans'),),
+        title: Text(
+          'Flutter App',
+          style: TextStyle(fontFamily: 'OpenSans'),
+        ),
         centerTitle: true,
         actions: [
           IconButton(
@@ -63,14 +77,7 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              width: double.infinity,
-              child: Card(
-                color: Colors.blue,
-                elevation: 5,
-                child: Text('CHART'),
-              ),
-            ),
+            Chart(recentTransactions: _recentTransactions),
             TransactionList(
               transactions: _userTransactions,
             )
